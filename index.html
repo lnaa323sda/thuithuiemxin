@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grow A Garden - Nhận Pet Miễn Phí</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Wellfleet" rel="stylesheet" type="text/css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: white;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 5px;
+            flex: 1;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 5px;
+            padding: 5px 0;
+        }
+
+        .header h1 {
+            font-size: 1.8em;
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+
+        .banner-container {
+            margin-bottom: 5px;
+        }
+
+        .banner-image {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+
+        .banner-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .banner-info {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 0.8em;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 3px;
+            border-radius: 3px;
+        }
+
+        .banner-info .warning {
+            color: #ffcc00;
+            background: rgba(255, 193, 7, 0.1);
+            padding: 3px;
+            border-radius: 3px;
+            position: relative;
+        }
+
+        /* Products Section */
+        .products-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 5px;
+            margin-bottom: 5px;
+            backdrop-filter: blur(3px);
+            max-width: 500px; /* Increased width for a slightly larger column */
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .products-title {
+            text-align: center;
+            font-size: 1.3em;
+            color: #FFD700;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            max-width: 480px; /* Adjusted to fit within the section */
+            margin: 0 auto;
+        }
+
+        .product-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 6px;
+            padding: 3px;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+            max-width: 100%;
+            height: 50px;
+            overflow: hidden;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 215, 0, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .product-card:hover::before {
+            left: 100%;
+        }
+
+        .product-card:hover {
+            transform: translateY(-1px);
+            border-color: #FFD700;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.2);
+        }
+
+        .product-image {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .product-image img {
+            width: 70%;
+            height: 70%;
+            object-fit: contain;
+            filter: drop-shadow(0 0 3px rgba(255, 215, 0, 0.3));
+        }
+
+        .product-info {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .product-name {
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #FFD700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .product-rarity {
+            font-size: 0.7em;
+            color: #ccc;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .receive-btn {
+            background: linear-gradient(45deg, #FFD700, #FFA500);
+            color: #1a1a2e;
+            border: none;
+            padding: 3px 8px;
+            font-size: 0.7em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            white-space: nowrap;
+            flex-shrink: 0;
+            height: 25px;
+            line-height: 15px;
+        }
+
+        .receive-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .receive-btn:hover::before {
+            left: 100%;
+        }
+
+        .receive-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+        }
+
+        .receive-btn:active {
+            transform: translateY(0);
+        }
+
+        /* History Section */
+        .history-section {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 5px;
+            backdrop-filter: blur(3px);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .history-section h4, .history-section h5 {
+            text-align: center;
+            color: #FFD700;
+            margin-bottom: 5px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+        }
+
+        .list-group-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            color: #fff;
+            font-size: 0.85em;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 215, 0, 0.2);
+            padding: 5px 0;
+            text-align: center;
+            backdrop-filter: blur(3px);
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5px;
+        }
+
+        .footer-logo {
+            font-size: 1em;
+            font-weight: bold;
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 5px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 0.8em;
+        }
+
+        .footer-links a:hover {
+            color: #FFD700;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 5px;
+        }
+
+        .social-icon {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            background: rgba(255, 215, 0, 0.1);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            border-radius: 50%;
+            line-height: 25px;
+            text-align: center;
+            color: #FFD700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .social-icon:hover {
+            background: rgba(255, 215, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .footer-copyright {
+            color: #999;
+            font-size: 0.7em;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 5px;
+            margin-top: 5px;
+        }
+
+        .footer-copyright p {
+            margin-bottom: 3px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            max-width: 280px;
+            width: 90%;
+            position: relative;
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from { transform: scale(0.7); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            font-size: 1.1em;
+            color: #ff4444;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 68, 68, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 68, 68, 0.2);
+        }
+
+        .modal-title {
+            color: #333;
+            font-size: 1em;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .modal-message {
+            color: #666;
+            font-size: 0.85em;
+            margin-bottom: 10px;
+        }
+
+        .modal-ok-btn {
+            background: linear-gradient(45deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 0.85em;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .modal-ok-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-card {
+                flex-direction: column;
+                height: auto;
+                padding: 3px;
+                gap: 3px;
+            }
+
+            .product-image {
+                width: 35px;
+                height: 35px;
+            }
+
+            .receive-btn {
+                width: 100%;
+                height: 20px;
+                line-height: 12px;
+            }
+
+            .header h1 {
+                font-size: 1.3em;
+            }
+
+            .banner-info {
+                font-size: 0.7em;
+            }
+
+            .products-section {
+                max-width: 450px;
+            }
+
+            .products-list {
+                max-width: 430px;
+            }
+
+            .history-section {
+                max-width: 450px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .products-section {
+                max-width: 300px;
+            }
+
+            .products-list {
+                max-width: 280px;
+            }
+
+            .history-section {
+                max-width: 300px;
+            }
+
+            .product-name {
+                font-size: 0.7em;
+            }
+
+            .product-rarity {
+                font-size: 0.65em;
+            }
+
+            .receive-btn {
+                font-size: 0.6em;
+                padding: 2px 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="banner-container">
+                <div class="banner-image">
+                    <img src="https://i.ibb.co/4Z4P7s7J/nh-ch-p-m-n-h-nh-2025-07-18-160255.png" alt="Grow A Garden">
+                </div>
+            </div>
+            <h1>🌸 Prehistoric Event 🌸</h1>
+            <p>Sự kiện diễn ra từ 18/07/2025 đến hết 25/07/2025</p>
+        </div>
+
+        <div class="products-section">
+            <h2 class="products-title">🎁 SẢN PHẨM ĐANG HOT 🎁</h2>
+            <div class="products-list">
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/CK73xwy2/nh-ch-p-m-n-h-nh-2025-07-18-162200.png" alt="Racoon">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Racoon</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Racoon')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/7dMBZ6vm/nh-ch-p-m-n-h-nh-2025-07-18-162951.png" alt="Dragonfly">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Dragonfly</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Dragonfly')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/MyHwVr14/nh-ch-p-m-n-h-nh-2025-07-18-163153.png" alt="Red Fox">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Red Fox</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Red Fox')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/BV47VrMm/nh-ch-p-m-n-h-nh-2025-07-18-163412.png" alt="Mimic">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Mimic Octopus</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Mimic Octopus')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/bgqKbCzG/nh-ch-p-m-n-h-nh-2025-07-18-163604.png" alt="Queen Bee">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Queen Bee</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Queen Bee')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/5xBK1Wvt/nh-ch-p-m-n-h-nh-2025-07-18-164033.png" alt="Disco">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Disco Bee</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Disco Bee')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/PZbWMLzJ/nh-ch-p-m-n-h-nh-2025-07-18-164339.png" alt="Butterfly">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Butterfly</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Butterfly')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/LXZ4k2Ht/nh-ch-p-m-n-h-nh-2025-07-18-164524.png" alt="Fennec Fox">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Fennec Fox</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Fennec Fox')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/WvNhJ96F/nh-ch-p-m-n-h-nh-2025-07-18-164659.png" alt="Spinosaurus">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet Spinosaurus</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet Spinosaurus')">NHẬN QUÀ</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://i.ibb.co/TxV5wd63/nh-ch-p-m-n-h-nh-2025-07-18-164848.png" alt="T-Rex">
+                    </div>
+                    <div class="product-info">
+                        <div class="product-name">Pet T-Rex</div>
+                        <div class="product-rarity">Siêu hiếm</div>
+                    </div>
+                    <button class="receive-btn" onclick="showModal('Pet T-Rex')">NHẬN QUÀ</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="history-section">
+            <h4>Lịch Sử Nhận Quà</h4>
+            <h5>Thống Kê Trên Thời Gian Thật:</h5>
+            <ul class="list-group mt-3" id="thongke_vhn"></ul>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-content">
+            <div class="footer-copyright">
+                <p>© 2025 Grow A Garden. Sự kiện Prehistoric Event.</p>
+                <p>All rights reserved.</p>
+            </div>
+        </div>
+    </div>
+
+<div class="modal" id="receiveModal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal()">×</span>
+    <div class="modal-title">Thông báo</div>
+    <div class="modal-message">
+      Bạn vừa chọn <span id="modalProductName"></span> thành công!<br>
+      Vui lòng bấm ok để đăng nhập tài khoản và chờ chúng tôi xử lý.
+    </div>
+    <button class="modal-ok-btn" onclick="closeModalAndRedirect()">OK</button>
+  </div>
+</div>
+
+<script>
+  function closeModalAndRedirect() {
+    document.getElementById("receiveModal").style.display = "none";
+
+    setTimeout(function() {
+      window.location.href = "login.html";
+    }, 500);
+  }
+
+  function closeModal() {
+    document.getElementById("receiveModal").style.display = "none";
+  }
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript">
+        function generateRobloxUsername() {
+            const letters = 'abcdefghijklmnopqrstuvwxyz';
+            const numbers = '0123456789';
+            const usernameLength = 8 + Math.floor(Math.random() * 4); // 8-11 characters
+            let username = '';
+            for (let i = 0; i < usernameLength; i++) {
+                if (i === 0 || Math.random() < 0.7) {
+                    username += letters[Math.floor(Math.random() * letters.length)];
+                } else {
+                    username += numbers[Math.floor(Math.random() * numbers.length)];
+                }
+            }
+            return username.charAt(0).toUpperCase() + username.slice(1);
+        }
+
+        function ketqua() {
+            var ketqua = '';
+            for (i = 1; i <= 10; i++) {
+                var username_vhn = generateRobloxUsername();
+                ketqua += '<li class="list-group-item">Tài khoản <b>' + username_vhn + '</b> Vừa nhận 1 phần quà!</li>';
+            }
+            document.getElementById('thongke_vhn').innerHTML = ketqua;
+        }
+
+        ketqua();
+        setInterval(ketqua, 700);
+    </script>
+
+    <script>
+        function showModal(productName) {
+            const modal = document.getElementById('receiveModal');
+            const modalProductName = document.getElementById('modalProductName');
+            modalProductName.textContent = productName;
+            modal.style.display = 'flex';
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('receiveModal');
+            modal.style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('receiveModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
